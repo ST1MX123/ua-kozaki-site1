@@ -5,37 +5,35 @@ const SteamStrategy = require('passport-steam').Strategy;
 const path = require('path');
 
 const app = express();
-const STEAM_API_KEY = 'ВАШ_STEAM_API_KEY';
+
+const STEAM_API_KEY = 'ТУТ_ТВІЙ_STEAM_API_KEY';
 
 passport.use(new SteamStrategy({
-    returnURL: 'http://localhost:3000/auth/steam/return',
-    realm: 'http://localhost:3000/',
+    returnURL: 'https://your-app-name.onrender.com/auth/steam/return',
+    realm: 'https://your-app-name.onrender.com/',
     apiKey: STEAM_API_KEY
 }, (identifier, profile, done) => done(null, profile)));
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));
 
-app.use(session({ secret: 'kozaki', resave: false, saveUninitialized: true }));
+app.use(session({
+    secret: 'kozaki',
+    resave: false,
+    saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname)));
 
-app.get('/', (req, res) => {
-    if (req.user) {
-        res.send(`<h1>Привіт, ${req.user.displayName}</h1><img src="${req.user.photos[0].value}">`);
-    } else {
-        res.sendFile(path.join(__dirname, 'index.html'));
-    }
-});
-
 app.get('/auth/steam', passport.authenticate('steam'));
 
-app.get('/auth/steam/return', passport.authenticate('steam', { failureRedirect: '/' }), 
-    (req, res) => res.redirect('/')
+app.get('/auth/steam/return',
+passport.authenticate('steam', { failureRedirect: '/' }),
+(req, res) => res.redirect('/')
 );
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Сервер запущено на порті ${PORT}`));
-
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
