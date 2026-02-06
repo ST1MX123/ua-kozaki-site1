@@ -38,3 +38,4 @@ app.get('/auth/steam/return', passport.authenticate('steam', { failureRedirect: 
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Сервер запущено на порті ${PORT}`));
+
