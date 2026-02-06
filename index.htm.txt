@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>UA Kozaki CS2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>UA KOZAKI CS2</h1>
+  <p class="subtitle">Українська CS2 спільнота</p>
+
+  <div class="buttons">
+    <a href="#" class="btn">🎮 Підключитись</a>
+    <a href="#" class="btn">💬 Discord</a>
+    <a href="#" class="btn">🟢 Steam</a>
+  </div>
+</div>
+
+</body>
+</html>
