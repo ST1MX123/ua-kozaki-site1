@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UA Kozaki CS2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Ласкаво просимо на UA Kozaki CS2!</h1>
+    <a href="/auth/steam">Увійти через Steam</a>
+    <script src="script.js"></script>
+</body>
+</html>
