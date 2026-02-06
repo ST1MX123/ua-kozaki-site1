@@ -1,0 +1,67 @@
+body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f0f0f,#1a1a1a);
+    color:white;
+    text-align:center;
+}
+
+header {
+    background:black;
+    padding:20px;
+    font-size:24px;
+    font-weight:bold;
+    color:yellow;
+}
+
+.hero {
+    padding:40px;
+}
+
+.server-box {
+    background:#1c1c1c;
+    padding:20px;
+    border-radius:10px;
+    margin:20px auto;
+    width:300px;
+}
+
+.steam-btn, .donate {
+    display:inline-block;
+    margin:10px;
+    padding:12px 25px;
+    background:green;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.steam-btn:hover, .donate:hover {
+    background:darkgreen;
+    transform:scale(1.05);
+}
+
+.profile-box {
+    margin-top:20px;
+}
+
+.top-players {
+    margin-top:40px;
+}
+
+ul {
+    list-style:none;
+    padding:0;
+}
+
+li {
+    background:#1c1c1c;
+    margin:5px auto;
+    padding:10px;
+    width:250px;
+    border-radius:6px;
+}
