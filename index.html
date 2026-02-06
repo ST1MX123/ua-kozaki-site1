@@ -3,24 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UA Kozaki CS2</title>
-<link rel="stylesheet" href="style.css">
+<title>UA-KOZAKI CS2</title>
+
+<style>
+body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#0f0f0f;
+    color:white;
+    text-align:center;
+}
+
+header {
+    background:black;
+    padding:20px;
+    font-size:24px;
+    font-weight:bold;
+    color:yellow;
+}
+
+.hero {
+    padding:40px;
+}
+
+.server-box {
+    background:#1c1c1c;
+    padding:20px;
+    border-radius:10px;
+    margin:20px auto;
+    width:300px;
+}
+
+button, .donate {
+    display:inline-block;
+    margin:10px;
+    padding:12px 25px;
+    background:green;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+button:hover, .donate:hover {
+    background:darkgreen;
+}
+
+.profile-box {
+    margin-top:20px;
+}
+
+.top-players {
+    margin-top:40px;
+}
+
+ul {
+    list-style:none;
+    padding:0;
+}
+
+li {
+    background:#1c1c1c;
+    margin:5px auto;
+    padding:10px;
+    width:250px;
+    border-radius:6px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>UA KOZAKI CS2</h1>
-    <a class="steam-btn" href="/auth/steam">Увійти через Steam</a>
+UA-KOZAKI-CS2.FUN
 </header>
 
 <section class="hero">
-    <h2>Український CS2 сервер</h2>
-    <p>Приєднуйся до найкращих гравців 🇺🇦</p>
+    <h2>Український CS2 сервер 🇺🇦</h2>
+    <p>Грай з козаками!</p>
 
     <div class="server-box">
         <p><strong>IP:</strong> 123.123.123.123:27015</p>
-        <p><strong>Статус:</strong> Онлайн 🟢</p>
+        <p><strong>Статус:</strong> <span id="serverStatus">Перевірка...</span></p>
+    </div>
+
+    <button onclick="fakeLogin()">Увійти через Steam</button>
+
+    <div id="profile" class="profile-box" style="display:none;">
+        <img id="avatar" width="80" style="border-radius:50%;">
+        <h3 id="nickname"></h3>
     </div>
 
     <a href="https://send.monobank.ua/jar/7GtGUjMe7n" class="donate" target="_blank">
@@ -28,10 +101,53 @@
     </a>
 </section>
 
-<footer>
-    © 2026 UA Kozaki CS2
-</footer>
+<section class="top-players">
+    <h2>🏆 ТОП ГРАВЦІ</h2>
+    <ul id="topList"></ul>
+</section>
 
-<script src="script.js"></script>
+<script>
+
+// ====== ФЕЙК STEAM LOGIN ======
+function fakeLogin() {
+    const profile = {
+        name: "UA_Kozak",
+        avatar: "https://avatars.cloudflare.steamstatic.com/8b8c0b8d.png"
+    };
+
+    document.getElementById("profile").style.display = "block";
+    document.getElementById("nickname").innerText = profile.name;
+    document.getElementById("avatar").src = profile.avatar;
+}
+
+// ====== ТОП ГРАВЦІ ======
+const topPlayers = [
+    { name: "KOZAK_1", kills: 320 },
+    { name: "UA_Sniper", kills: 287 },
+    { name: "BANDERA", kills: 250 }
+];
+
+const list = document.getElementById("topList");
+
+topPlayers.forEach(player => {
+    const li = document.createElement("li");
+    li.innerText = player.name + " — " + player.kills + " kills";
+    list.appendChild(li);
+});
+
+// ====== СТАТУС СЕРВЕРА ======
+function checkServer() {
+    const status = document.getElementById("serverStatus");
+
+    setTimeout(() => {
+        status.innerHTML = "Онлайн 🟢";
+        status.style.color = "lime";
+    }, 2000);
+}
+
+checkServer();
+
+</script>
+
 </body>
 </html>
