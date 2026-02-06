@@ -6,11 +6,15 @@ const path = require('path');
 
 const app = express();
 
+// ⚠️ Встав сюди свій Steam API ключ
 const STEAM_API_KEY = 'ТУТ_ТВІЙ_STEAM_API_KEY';
 
+// ⚠️ Встав сюди свій Render або домен
+const APP_URL = 'https://ua-kozaki-cs2.fun';
+
 passport.use(new SteamStrategy({
-    returnURL: 'https://your-app-name.onrender.com/auth/steam/return',
-    realm: 'https://your-app-name.onrender.com/',
+    returnURL: `${APP_URL}/auth/steam/return`,
+    realm: `${APP_URL}/`,
     apiKey: STEAM_API_KEY
 }, (identifier, profile, done) => done(null, profile)));
 
@@ -18,7 +22,7 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));
 
 app.use(session({
-    secret: 'kozaki',
+    secret: 'kozaki_secret',
     resave: false,
     saveUninitialized: true
 }));
@@ -26,14 +30,31 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Статика
 app.use(express.static(path.join(__dirname)));
 
+// ====== РОУТИ STEAM ======
 app.get('/auth/steam', passport.authenticate('steam'));
 
 app.get('/auth/steam/return',
-passport.authenticate('steam', { failureRedirect: '/' }),
-(req, res) => res.redirect('/')
+    passport.authenticate('steam', { failureRedirect: '/' }),
+    (req, res) => {
+        // Після успішного входу редіректимо на головну
+        res.redirect('/');
+    }
 );
+
+// API для фронтенду
+app.get('/api/profile', (req, res) => {
+    if(req.user) {
+        res.json({
+            name: req.user.displayName,
+            avatar: req.user.photos[2].value
+        });
+    } else {
+        res.json({ name: null, avatar: null });
+    }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
