@@ -1,4 +1,4 @@
-// Демонстрація Steam профілю
+// ====== ФЕЙК STEAM LOGIN ======
 function fakeLogin() {
     const profile = {
         name: "UA_Kozak",
@@ -10,9 +10,29 @@ function fakeLogin() {
     document.getElementById("avatar").src = profile.avatar;
 }
 
-// Клік по Steam кнопці
-document.querySelector(".steam-btn").addEventListener("click", function(e){
-    e.preventDefault();
-    fakeLogin();
+// ====== ТОП ГРАВЦІ ======
+const topPlayers = [
+    { name: "KOZAK_1", kills: 320 },
+    { name: "UA_Sniper", kills: 287 },
+    { name: "BANDERA", kills: 250 }
+];
+
+const list = document.getElementById("topList");
+
+topPlayers.forEach(player => {
+    const li = document.createElement("li");
+    li.innerText = player.name + " — " + player.kills + " kills";
+    list.appendChild(li);
 });
 
+// ====== СТАТУС СЕРВЕРА ======
+function checkServer() {
+    const status = document.getElementById("serverStatus");
+
+    setTimeout(() => {
+        status.innerHTML = "Онлайн 🟢";
+        status.style.color = "lime";
+    }, 2000);
+}
+
+checkServer();
