@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 
 // ⚠️ Встав свій Steam API ключ сюди
-const STEAM_API_KEY = '73A28A895264D1BD677BF77BF8D570CA';
+const STEAM_API_KEY = 'ТУТ_ТВІЙ_STEAM_API_KEY';
 
 // ⚠️ Встав свій домен
 const APP_URL = 'https://ua-kozaki-cs2.fun';
