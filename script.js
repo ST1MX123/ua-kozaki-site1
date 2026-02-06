@@ -1,16 +1,26 @@
-// ====== ФЕЙК STEAM LOGIN ======
-function fakeLogin() {
-    const profile = {
-        name: "UA_Kozak",
-        avatar: "https://avatars.cloudflare.steamstatic.com/8b8c0b8d.png"
-    };
+// ====== Справжній Steam логін ======
+async function loadProfile() {
+    try {
+        const res = await fetch('/api/profile');
+        const data = await res.json();
 
-    document.getElementById("profile").style.display = "block";
-    document.getElementById("nickname").innerText = profile.name;
-    document.getElementById("avatar").src = profile.avatar;
+        if(data.name) {
+            document.getElementById("profile").style.display = "block";
+            document.getElementById("nickname").innerText = data.name;
+            document.getElementById("avatar").src = data.avatar;
+        }
+    } catch(e) {
+        console.error("Не вдалось завантажити профіль:", e);
+    }
 }
 
-// ====== ТОП ГРАВЦІ ======
+// Клік по кнопці Steam
+document.querySelector(".steam-btn").addEventListener("click", function(e){
+    e.preventDefault();
+    window.location.href = "/auth/steam";
+});
+
+// ====== ТОП ГРАВЦІ (демо) ======
 const topPlayers = [
     { name: "KOZAK_1", kills: 320 },
     { name: "UA_Sniper", kills: 287 },
@@ -18,17 +28,15 @@ const topPlayers = [
 ];
 
 const list = document.getElementById("topList");
-
 topPlayers.forEach(player => {
     const li = document.createElement("li");
     li.innerText = player.name + " — " + player.kills + " kills";
     list.appendChild(li);
 });
 
-// ====== СТАТУС СЕРВЕРА ======
+// ====== СТАТУС СЕРВЕРА (демо) ======
 function checkServer() {
     const status = document.getElementById("serverStatus");
-
     setTimeout(() => {
         status.innerHTML = "Онлайн 🟢";
         status.style.color = "lime";
@@ -36,3 +44,6 @@ function checkServer() {
 }
 
 checkServer();
+
+// ====== Після завантаження сторінки отримати профіль ======
+window.onload = loadProfile;
